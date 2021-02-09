@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gft.CrossCutting\Gft.CrossCutting.csproj" />
+    <ProjectReference Include="..\Gft.Documentation\Gft.Documentation.csproj" />
+    <ProjectReference Include="..\Gft.Domain\Gft.Domain.csproj" />
+    <ProjectReference Include="..\Gft.Migratior\Gft.Migratior.csproj" />
+  </ItemGroup>
+
+
+</Project>
