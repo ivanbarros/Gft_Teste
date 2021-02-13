@@ -80,6 +80,35 @@ namespace Gft.Application.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAllFood")]
+        public async Task<IActionResult> GetFood()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var food = await _service.GetAllFood();
+                return Ok(food);
+            }
+            catch (Exception ex)
+            {
+                StackTrace stackTrace = new StackTrace();
+
+                var errorLog = new LogEntity();
+                errorLog.nomeMetodo = stackTrace.GetFrame(3).GetMethod().Name;
+                errorLog.NomeController = $@"{ControllerContext.RouteData.Values["controller"]}";
+                errorLog.errorMessage = ex.Message.ToString().Replace("'", " ");
+
+                await _logService.InsertLog(errorLog);
+                _unitOfWork.Commit();
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+
+            }
+        }
+
 
         [HttpPost]
         [Route("InsertFood")]
@@ -103,5 +132,26 @@ namespace Gft.Application.Controllers
             }
         }
 
+
+        [HttpPut]
+        [Route("UpdateFood")]
+        public async Task<IActionResult> Update([FromBody] FoodEntity food)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+               var update = await _service.UpdateFood(food);
+                return Ok(food);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

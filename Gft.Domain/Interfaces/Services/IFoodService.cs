@@ -11,7 +11,7 @@ namespace Gft.Domain.Interfaces.Services
     {
         Task<IEnumerable<FoodEntity>> GetFoodByType(string type);
         Task<FoodEntity> InsertFood(FoodEntity food);
-        Task UpdateFood(FoodEntity food);
+        Task <FoodEntity> UpdateFood(FoodEntity food);
         Task<IEnumerable> GetAllFood();
         Task<bool> Delete(int id);
         Task<IEnumerable<FoodEntity>> GetFoodByTimeMeal(string type);

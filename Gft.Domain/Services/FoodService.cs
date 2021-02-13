@@ -46,10 +46,26 @@ namespace Gft.Domain.Services
         }
 
 
-        public async Task UpdateFood(FoodEntity food)
+        public async Task<FoodEntity> UpdateFood(FoodEntity food)
         {
+            var getFood = await _repository.GetFoodById(food.Id);
+            if (food.TimeMeal==0)
+            {
+                food.TimeMeal = getFood.TimeMeal;
+            }
+            if (food.Type ==0)
+            {
+              food.Type =  getFood.Type;
+
+            }
+            if (string.IsNullOrEmpty(food.Name))
+            {
+                food.Name = getFood.Name;
+            }
+
              await _repository.UpdateFood(food);
             _unitOfWork.Commit();
+            return food;
            
         }
     }

@@ -18,9 +18,16 @@ namespace Gft.Data.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<FoodEntity>> GetFood()
+        public async Task<IEnumerable<FoodEntity>> GetFood()
         {
-            throw new NotImplementedException();
+            var query = $@"SELECT * FROM gft_teste.food";
+            return await _unitOfWork.BaseRepository().FindByQuery<FoodEntity>(query);
+        }
+
+        public async Task<FoodEntity> GetFoodById(int id)
+        {
+            var query = $@"SELECT * FROM gft_teste.food where id = '{id}';";
+            return await _unitOfWork.BaseRepository().SingleByQuery<FoodEntity>(query,id);
         }
 
         public async Task<IEnumerable<FoodEntity>> GetFoodByTimeMeal(string type)
@@ -55,9 +62,16 @@ namespace Gft.Data.Repository
             return await _unitOfWork.BaseRepository().InsertIdentityTable<FoodEntity>(query, food);
         }
 
-        public Task UpdateFood(FoodEntity food)
+        public async Task UpdateFood(FoodEntity food)
         {
-            throw new NotImplementedException();
+            var query = $@"SELECT * FROM gft_teste.food where type = 'Entree';UPDATE `gft_teste`.`food`
+                        SET
+                        `name` = '{food.Name}',
+                        `type` = '{food.Type}',
+                        `time_meal` = '{food.TimeMeal}'
+                        WHERE `Id` = {food.Id};
+                        ";
+             await _unitOfWork.BaseRepository().Update(query, food);
         }
     }
 }
