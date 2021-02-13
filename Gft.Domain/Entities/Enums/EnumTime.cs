@@ -2,7 +2,8 @@
 {
     public enum EnumTime
     {
-        morning,
-        night
+        morning = 1,
+        afternoon = 2,
+        night = 3
     }
 }

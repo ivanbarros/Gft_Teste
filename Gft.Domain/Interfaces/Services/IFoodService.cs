@@ -9,10 +9,11 @@ namespace Gft.Domain.Interfaces.Services
 {
     public interface IFoodService
     {
-        Task<FoodEntity> GetFoodByType(string type);
+        Task<IEnumerable<FoodEntity>> GetFoodByType(string type);
         Task<FoodEntity> InsertFood(FoodEntity food);
         Task UpdateFood(FoodEntity food);
         Task<IEnumerable> GetAllFood();
         Task<bool> Delete(int id);
+        Task<IEnumerable<FoodEntity>> GetFoodByTimeMeal(string type);
     }
 }

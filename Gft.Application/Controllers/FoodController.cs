@@ -51,6 +51,34 @@ namespace Gft.Application.Controllers
                 
             }
         }
+        [HttpGet]
+        [Route("GetFoodByTimeMeal")]
+        public async Task<IActionResult> GetFoodByTimeMeal(string type)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var food = await _service.GetFoodByTimeMeal(type);
+                return Ok(food);
+            }
+            catch (Exception ex)
+            {
+                StackTrace stackTrace = new StackTrace();
+
+                var errorLog = new LogEntity();
+                errorLog.nomeMetodo = stackTrace.GetFrame(3).GetMethod().Name;
+                errorLog.NomeController = $@"{ControllerContext.RouteData.Values["controller"]}";
+                errorLog.errorMessage = ex.Message.ToString().Replace("'", " ");
+
+                await _logService.InsertLog(errorLog);
+                _unitOfWork.Commit();
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+                
+            }
+        }
 
 
         [HttpPost]
@@ -65,7 +93,7 @@ namespace Gft.Application.Controllers
             {
                 var insertFood = await _service.InsertFood(food);
                 
-                    return Ok($"Usuario {food.Name} cadastrado com sucesso!");
+                    return Ok($"{food.Name} cadastrado com sucesso!");
                 
             }
             catch (Exception)

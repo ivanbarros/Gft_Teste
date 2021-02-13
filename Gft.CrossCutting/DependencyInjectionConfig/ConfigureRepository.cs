@@ -11,6 +11,7 @@ namespace Gft.CrossCutting.DependencyInjectionConfig
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IFoodRepository, FoodRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
         }
     }
 }

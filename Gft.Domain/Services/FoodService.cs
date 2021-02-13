@@ -3,6 +3,7 @@ using Gft.Domain.Entities;
 using Gft.Domain.Interfaces.Repository;
 using Gft.Domain.Interfaces.Services;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Gft.Domain.Services
@@ -28,11 +29,15 @@ namespace Gft.Domain.Services
             return await _repository.GetFood();
         }
 
-        public async Task<FoodEntity> GetFoodByType(string type)
+        public async Task<IEnumerable<FoodEntity>> GetFoodByType(string type)
         {
             return await _repository.GetFoodByType(type);            
         }
 
+        public async Task<IEnumerable<FoodEntity>> GetFoodByTimeMeal(string type)
+        {
+            return await _repository.GetFoodByTimeMeal(type);
+        }
         public async Task<FoodEntity> InsertFood(FoodEntity food)
         {
             await _repository.InsertFood(food);
@@ -40,10 +45,12 @@ namespace Gft.Domain.Services
             return food;
         }
 
+
         public async Task UpdateFood(FoodEntity food)
         {
              await _repository.UpdateFood(food);
-            _unitOfWork.Commit();            
+            _unitOfWork.Commit();
+           
         }
     }
 }

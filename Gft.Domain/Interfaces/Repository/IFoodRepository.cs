@@ -9,8 +9,8 @@ namespace Gft.Domain.Interfaces.Repository
         Task<IEnumerable<FoodEntity>> GetFood();
         Task<FoodEntity> InsertFood(FoodEntity Food);
         Task UpdateFood(FoodEntity Food);
-        Task<FoodEntity> GetFoodByType(string type);
+        Task<IEnumerable<FoodEntity>> GetFoodByType(string type);
         Task<bool> Delete(int id);
-
+        Task<IEnumerable<FoodEntity>> GetFoodByTimeMeal(string type);
     }
 }
